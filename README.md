@@ -6,7 +6,7 @@ Optional: Change accuracy of all enemy skills to 100%
 
 Usage:
 
-Backup heroes and monsters folder, there is no ctrl-z
+Backup heroes and monsters folders, there is no ctrl-z
 
 Place the exe in darkest dungeon folder
 
