@@ -21,16 +21,18 @@ namespace DarkAccuracy
         {
 
             var confirmResult = MessageBox.Show("Did you backup everything??!?!?",
-                                     "Time to win!!",
-                                     MessageBoxButtons.YesNo);
+                                                "Time to win!!",
+                                                MessageBoxButtons.YesNo);
             if (confirmResult != DialogResult.Yes) return;
+
             confirmResult = MessageBox.Show("Did you really backup everything??!?!?",
-                "Time to win!!",
-                MessageBoxButtons.YesNo);
+                                            "Time to win!!",
+                                            MessageBoxButtons.YesNo);
             if (confirmResult != DialogResult.Yes) return;
+
             confirmResult = MessageBox.Show("The whole heroes folder??!?!?",
-                "Time to win!!",
-                MessageBoxButtons.YesNo);
+                                            "Time to win!!",
+                                            MessageBoxButtons.YesNo);
             if (confirmResult != DialogResult.Yes) return;
 
             append("Starting");
@@ -56,28 +58,24 @@ namespace DarkAccuracy
 
             String path = Application.StartupPath + "\\monsters";
 
-            var monsterConfirm = MessageBox.Show("Do you want monsters to get 100% accuracy aswell?", "Mobs",
-                MessageBoxButtons.YesNo);
+            var monsterConfirm = MessageBox.Show("Do you want monsters to get 100% accuracy aswell?", 
+                                                 "Mobs",
+                                                  MessageBoxButtons.YesNo);
+            if (monsterConfirm != DialogResult.Yes) return;
 
-            if (monsterConfirm == DialogResult.Yes)
+            monsterConfirm = MessageBox.Show("Did you backup the monsters folder!??!?!?", 
+                                             "Mobs",
+                                             MessageBoxButtons.YesNo);
+            if (monsterConfirm != DialogResult.Yes) return;
+
+            foreach (string s in Directory.GetFiles(path, "*", SearchOption.AllDirectories).Where(s => s.Contains("info.darkest")))
             {
-                var monsterConfirm2 = MessageBox.Show("Did you backup the monsters folder!??!?!?", "Mobs",
-                    MessageBoxButtons.YesNo);
-
-                if (monsterConfirm2 == DialogResult.Yes)
-                {
-
-                    foreach (string s in Directory.GetFiles(path, "*", SearchOption.AllDirectories).Where(s => s.Contains("info.darkest")))
-                    {
-                        append("Processing " + s);
-                        File.WriteAllText(s, Regex.Replace(File.ReadAllText(s), ".atk (.*?)\\w%", ".atk 100%"));
-                        append("Processed " + s);
-                    }
-                }
+                append("Processing " + s);
+                File.WriteAllText(s, Regex.Replace(File.ReadAllText(s), ".atk (.*?)\\w%", ".atk 100%"));
+                append("Processed " + s);
             }
 
-
-            MessageBox.Show("All Done!");
+            MessageBox.Show("All Done");
         }
 
         private void append(String text)
