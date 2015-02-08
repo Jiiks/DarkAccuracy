@@ -1,4 +1,4 @@
-﻿namespace Critter
+﻿namespace DarkAccuracy
 {
     partial class frmMain
     {
