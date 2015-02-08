@@ -8,11 +8,11 @@ namespace Critter
 {
 
 
-    public partial class Form1 : Form
+    public partial class frmMain : Form
     {
         private String[] classesArray = { "bounty_hunter", "crusader", "grave_robber", "hellion", "highwayman", "jester", "leper", "occultist", "plague_doctor", "vestal" };
 
-        public Form1()
+        public frmMain()
         {
             InitializeComponent();
         }
