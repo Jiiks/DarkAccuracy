@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -23,14 +24,14 @@ namespace Critter
                                      "Time to win!!",
                                      MessageBoxButtons.YesNo);
             if (confirmResult != DialogResult.Yes) return;
-            var confirmResult2 = MessageBox.Show("Did you really backup everything??!?!?",
+            confirmResult = MessageBox.Show("Did you really backup everything??!?!?",
                 "Time to win!!",
                 MessageBoxButtons.YesNo);
-            if (confirmResult2 != DialogResult.Yes) return;
-            var confirmResult3 = MessageBox.Show("The whole heroes folder??!?!?",
+            if (confirmResult != DialogResult.Yes) return;
+            confirmResult = MessageBox.Show("The whole heroes folder??!?!?",
                 "Time to win!!",
                 MessageBoxButtons.YesNo);
-            if (confirmResult3 != DialogResult.Yes) return;
+            if (confirmResult != DialogResult.Yes) return;
 
             append("Starting");
 
@@ -45,11 +46,8 @@ namespace Critter
                 append(s + " info file located");
             }
 
-
-            //Magic
-            foreach (string s in classesArray)
+            foreach (string file in classesArray.Select(s => Application.StartupPath + "\\heroes\\" + s + "\\" + s + ".info.darkest"))
             {
-                String file = Application.StartupPath + "\\heroes\\" + s + "\\" + s + ".info.darkest";
                 append("Processing " + file);
                 File.WriteAllText(file, Regex.Replace(File.ReadAllText(file), ".atk (.*?)\\w%", ".atk 100%"));
                 append("Processed " + file);
@@ -69,14 +67,11 @@ namespace Critter
                 if (monsterConfirm2 == DialogResult.Yes)
                 {
 
-                    foreach (String s in Directory.GetFiles(path, "*", SearchOption.AllDirectories))
+                    foreach (string s in Directory.GetFiles(path, "*", SearchOption.AllDirectories).Where(s => s.Contains("info.darkest")))
                     {
-                        if (s.Contains("info.darkest"))
-                        {
-                            append("Processing " + s);
-                            File.WriteAllText(s, Regex.Replace(File.ReadAllText(s), ".atk (.*?)\\w%", ".atk 100%"));
-                            append("Processed " + s);
-                        }
+                        append("Processing " + s);
+                        File.WriteAllText(s, Regex.Replace(File.ReadAllText(s), ".atk (.*?)\\w%", ".atk 100%"));
+                        append("Processed " + s);
                     }
                 }
             }
